@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Operation Blacksite - ML Experimental Division</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <style>
+            /* CSS-muuttujat */
+            :root {
+                --bg-dark: #0a1628;
+                --bg-medium: #0d2240;
+                --bg-light: #112a4a;
+                --blue: #4a9eff;
+                --orange: #ff6b35;
+                --text-primary: #c8d6e5;
+                --text-muted: #8899aa;
+                --text-dark: #3a5a7a;
+                --border: rgba(74, 158, 255, 0.15);
+            }
+
+            /* Sivun perusasetukset */
+            html, body {
+                padding: 0;
+                margin: 0;
+                background-color: var(--bg-dark);
+                color: var(--text-primary);
+                min-height: 100vh;
+            }
+
+            /* Hero osion otsikko */
+            .hero-title {
+                color: var(--orange);
+                font-size: clamp(1.8rem, 4vw, 3rem);
+                margin-bottom: 0.25rem;
+            }
+
+            /* Hero osion alaotsikko */
+            .hero-subtitle {
+                color: var(--blue);
+                font-size: clamp(1rem, 2.5vw, 1.5rem);
+            }
+
+            /* Hero osion description */
+            .hero-desc {
+                color: var(--text-muted);
+                max-width: 600px;
+                font-family: 'Roboto', sans-serif;
+                font-size: clamp(0.875rem, 1.5vw, 1rem);
+                line-height: 1.6;
+            }
+
+            /* Radar koko ja sen asetukset */
+            .radar-container {
+                max-width: 250px;
+                width: 100%;
+            }
+            .radar-svg {
+                width: 100%;
+                height: auto;
+            }
+            .radar-arm {
+                transform-origin: 160px 160px;
+                animation: radar-sweep 4s linear infinite;
+            }
+            @keyframes radar-sweep {
+                to { transform: rotate(360deg); }
+            }
+
+            /* Fontit */
+            .font-stencil {
+                font-family: 'Black Ops One', sans-serif;
+            }
+            .font-military {
+                font-family: 'Teko', sans-serif;
+                font-weight: 400;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+
+            /* Classified-palkki */
+            .classified-bar {
+                border-top: 1px solid var(--border);
+                border-bottom: 1px solid var(--border);
+                padding: 0.5rem 0;
+                background-color: var(--bg-medium);
+            }
+            .classified-text {
+                font-family: 'Teko', sans-serif;
+                font-size: clamp(0.95rem, 2.1vw, 1.15rem);
+                color: var(--text-dark);
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+            }
+
+            /* Case Files */
+            /* Osion otsikko */
+            .section-title {
+                color: var(--blue);
+                font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            /* Projektikortti */
+            .project-card {
+                background-color: var(--bg-medium);
+                border: 1px solid var(--border);
+                padding: 1.25rem;
+                position: relative;
+                margin-top: 0.75rem;
+                transition: transform 0.2s, border-color 0.2s;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Projektikortti hover */
+            .project-card:hover {
+                transform: scale(1.03);
+                border-color: var(--blue);
+            }
+
+            /* Tabi kortin yläpuolella */
+            .project-tab {
+                position: absolute;
+                top: -0.75rem;
+                left: 1rem;
+                background-color: var(--bg-light);
+                border: 1px solid var(--border);
+                padding: 0.1rem 0.75rem;
+                font-family: 'Courier New', monospace;
+                font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+                color: var(--blue);
+                letter-spacing: 0.1em;
+            }
+
+            /* Projektin nimi */
+            .project-name {
+                color: var(--orange);
+                font-size: clamp(1rem, 2vw, 1.25rem);
+                margin-top: 0.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Projektin kuvaus */
+            .project-desc {
+                font-family: 'Roboto', sans-serif;
+                font-size: clamp(0.8rem, 1.4vw, 0.9rem);
+                color: var(--text-muted);
+                line-height: 1.5;
+                margin-bottom: 0.75rem;
+            }
+
+            /* Status-rivi */
+            .project-status {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+                margin-top: auto;
+            }
+
+            /* Status-pallo */
+            .status-dot {
+                width: 0.5rem;
+                height: 0.5rem;
+                border-radius: 50%;
+                display: inline-block;
+            }
+
+            /* Eri statukset */
+            .status-active { background-color: #00cc44; }
+            .status-pending { background-color: var(--orange); }
+            .status-archived { background-color: var(--text-dark); }
+
+            /* Status-teksti */
+            .status-label {
+                color: var(--text-dark);
+                font-family: 'Roboto', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+
+        <section id="hero">
+            <main class="container py-5">
+                <div class="row align-items-center gy-4">
+
+                    <!-- Radar -->
+                    <div class="col-12 col-md-5 col-lg-4 text-center">
+                        <div class="radar-container mx-auto">
+                            <svg viewBox="0 0 320 320" class="radar-svg">
+
+                                <!-- Radar-ympyrät (etäisyysrenkaat) -->
+                                <circle cx="160" cy="160" r="140" fill="none" stroke="var(--blue)" stroke-width="0.5" opacity="0.3"/>
+                                <circle cx="160" cy="160" r="100" fill="none" stroke="var(--blue)" stroke-width="0.5" opacity="0.2"/>
+                                <circle cx="160" cy="160" r="60" fill="none" stroke="var(--blue)" stroke-width="0.5" opacity="0.15"/>
+
+                                <!-- Radar-ristikko (pysty + vaaka) -->
+                                <line x1="160" y1="20" x2="160" y2="300" stroke="var(--blue)" stroke-width="0.5" opacity="0.15"/>
+                                <line x1="20" y1="160" x2="300" y2="160" stroke="var(--blue)" stroke-width="0.5" opacity="0.15"/>
+
+                                <!-- Pyörivä radar-viiva -->
+                                <g class="radar-arm">
+                                    <line x1="160" y1="160" x2="160" y2="24" stroke="var(--blue)" stroke-width="1.5" opacity="0.8"/>
+
+                                    <!-- Häivytys viivan perässä (leveämpi, läpinäkyvä) -->
+                                    <line x1="160" y1="160" x2="155" y2="28" stroke="var(--blue)" stroke-width="8" opacity="0.15"/>
+                                    <line x1="160" y1="160" x2="148" y2="35" stroke="var(--blue)" stroke-width="14" opacity="0.06"/>
+                                </g>
+
+                                <!-- Blip-pisteet radarissa -->
+                                <circle cx="200" cy="100" r="3" fill="var(--orange)" opacity="0.8"/>
+                                <circle cx="120" cy="200" r="2.5" fill="var(--orange)" opacity="0.6"/>
+                                <circle cx="230" cy="190" r="2" fill="var(--green, #00cc44)" opacity="0.7"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-7 col-lg-8">
+                        <h1 class="font-stencil hero-title">Operation Blacksite</h1>
+                        <h2 class="font-military hero-subtitle">ML Experimental Division</h2>
+                        <p class="hero-desc mt-3">
+                            Classified research projects in neural network development, 
+                            predictive modeling, and autonomous decision systems.
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </section>
+
+        <div class="classified-bar">
+            <div class="container d-flex align-items-center justify-content-center flex-wrap gap-3 gap-lg-5">
+                <span class="classified-text">Classified — Authorized personnel only</span>
+                <span class="classified-text">Clearance level: Sigma-7</span>
+                <span class="classified-text">Signal integrity: 98.7%</span>
+            </div>
+        </div>
+
+        <section id="case-files" class="py-5">
+            <div class="container">
+
+                <!-- Osion otsikko -->
+                <h2 class="font-military section-title mb-4">Case Files</h2>
+
+                <!-- Projektikortit -->
+                <div class="row gy-5 gx-4">
+
+                    <!-- Projekti 1 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="project-card h-100">
+                            <div class="project-tab">Project I</div>
+                            <h3 class="font-stencil project-name">Operation Nightfall</h3>
+                            <p class="project-desc">Deep learning model for pattern recognition in signal data.</p>
+                            <div class="project-status">
+                                <span class="status-dot status-pending"></span>
+                                <span class="status-label">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projekti 2 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="project-card h-100">
+                            <div class="project-tab">Project II</div>
+                            <h3 class="font-stencil project-name">Operation Spectre</h3>
+                            <p class="project-desc">NLP-based sentiment analysis of intercepted communications.</p>
+                            <div class="project-status">
+                                <span class="status-dot status-pending"></span>
+                                <span class="status-label">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projekti 3 -->
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="project-card h-100">
+                            <div class="project-tab">Project III</div>
+                            <h3 class="font-stencil project-name">Operation Phantom</h3>
+                            <p class="project-desc">Time series forecasting for strategic resource allocation.</p>
+                            <div class="project-status">
+                                <span class="status-dot status-pending"></span>
+                                <span class="status-label">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
