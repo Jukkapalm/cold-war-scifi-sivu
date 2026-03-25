@@ -38,6 +38,38 @@
                 min-height: 100vh;
             }
 
+            /* Navigaatio */
+            .navbar {
+                background-color: var(--bg-medium);
+                border-bottom: 1px solid var(--border);
+                padding: 0.5rem 0;
+            }
+
+            .nav-brand {
+                color: var(--orange);
+                font-size: clamp(1rem, 2vw, 1.2rem);
+                font-family: 'Black Ops One', sans-serif !important;
+            }
+
+            .nav-link-custom {
+                font-family: 'Teko', sans-serif;
+                font-size: clamp(1rem, 1.8vw, 1.2rem);
+                color: var(--text-dark);
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                transition: color 0.2s;
+            }
+
+            .nav-link-custom:hover { color: var(--blue); }
+            .nav-link-custom.active { color: var(--blue) !important; }
+
+            /* Hamburger-ikoni väri */
+            .navbar-toggler { border-color: var(--border); }
+
+            .navbar-toggler-icon {
+                filter: invert(50%) sepia(100%) saturate(500%) hue-rotate(190deg);
+            }
+
             /* Hero osion otsikko */
             .hero-title {
                 color: var(--orange);
@@ -117,6 +149,8 @@
                 font-size: clamp(1.2rem, 2.5vw, 1.6rem);
                 padding-bottom: 0.5rem;
                 border-bottom: 1px solid var(--border);
+                margin-top: 0;
+                margin-bottom: 0;
             }
 
             /* Projektikortti */
@@ -251,6 +285,7 @@
                 gap: 1rem;
                 flex-wrap: wrap;
                 border-bottom: 1px solid var(--border);
+                padding-bottom: 0.5rem;
             }
 
             .tech-stack-label {
@@ -302,12 +337,13 @@
             .tech-tag {
                 background-color: rgba(74, 158, 255, 0.08);
                 border: 1px solid var(--border);
-                padding: 0.2rem 0.75rem;
+                padding: 0.1rem 0.4rem;
                 font-family: 'Courier New', monospace;
-                font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+                font-size: clamp(0.8rem, 1.4vw, 0.9rem);
                 color: var(--blue);
-                letter-spacing: 0.05em;
+                letter-spacing: 0.1em;
                 display: inline-block;
+                margin-bottom: 0.2rem;
             }
 
             @keyframes sonar-ping {
@@ -318,10 +354,54 @@
             .ping-active {
                 animation: sonar-ping 1.2s ease-out infinite;
             }
+
+            /* Footer */
+            .site-footer {
+                border-top: 1px solid var(--border);
+                padding: 0.75rem 0;
+                background-color: var(--bg-medium);
+            }
+
+            .footer-text {
+                font-family: 'Teko', sans-serif;
+                font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+                color: var(--blue);
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+            }
+
+            @media (max-width: 767.98px) {
+                .tech-stack-bar {
+                    border-bottom: none;
+                }
+            }
         </style>
     </head>
 
     <body>
+
+        <!-- Navigaatio -->
+        <nav class="navbar navbar-expand-md">
+            <div class="container">
+                <a class="navbar-brand font-military nav-brand" href="#">Blacksite Command</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom" href="#">Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-custom active" href="#">Operation Blacksite</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
         <section id="hero">
             <main class="container py-5">
@@ -396,7 +476,7 @@
             <div class="container">
 
                 <!-- Osion otsikko -->
-                <div class="row align-items-start mb-4">
+                <div class="row align-items-end mb-4">
                     <div class="col-12 col-lg-4">
                         <h2 class="font-military section-title">Case Files</h2>
                     </div>
@@ -417,7 +497,7 @@
                         <div class="project-card h-100"
                             data-tech='["Python"]'>
                             <div class="project-tab">Project I</div>
-                            <h3 class="font-stencil project-name">Operation Nightfall</h3>
+                            <h3 class="font-stencil project-name">Project Nightfall</h3>
                             <p class="project-desc">Deep learning model for pattern recognition in signal data.</p>
                             <div class="project-footer">
                                 <div class="project-status">
@@ -437,7 +517,7 @@
                         <div class="project-card h-100"
                             data-tech='["Python"]'>
                             <div class="project-tab">Project II</div>
-                            <h3 class="font-stencil project-name">Operation Spectre</h3>
+                            <h3 class="font-stencil project-name">Protocol Spectre</h3>
                             <p class="project-desc">NLP-based sentiment analysis of intercepted communications.</p>
                             <div class="project-footer">
                                 <div class="project-status">
@@ -457,7 +537,7 @@
                         <div class="project-card h-100"
                             data-tech='["Python"]'>
                             <div class="project-tab">Project III</div>
-                            <h3 class="font-stencil project-name">Operation Phantom</h3>
+                            <h3 class="font-stencil project-name">Codename: Phantom</h3>
                             <p class="project-desc">Time series forecasting for strategic resource allocation.</p>
                             <div class="project-footer">
                                 <div class="project-status">
@@ -485,6 +565,13 @@
             </div>
         </div>
 
+        <footer class="site-footer">
+            <div class="container d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <span class="footer-text" id="footerMessage">> End of transmission...</span>
+                <span class="footer-text" id="footerSignal">FREQ: 147.382 MHz // 65.0124°N 25.4682°E</span>
+            </div>
+        </footer>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
         <script>
 
@@ -509,7 +596,7 @@
                         clearInterval(interval);
                         element.textContent = targetText;
                     }
-                }, 30);
+                }, 50);
             }
 
             function showTechStack(techArray) {
@@ -556,6 +643,40 @@
                     ping.classList.remove('ping-active');
                 });
             });
+
+            // Footer scramble
+            const footerMessages = [
+                '> End of transmission...',
+                '> Distribution: Eyes only',
+                '> End of document',
+                '> Closing secure channel...',
+                '> Signal lost...'
+            ];
+
+            let currentMessage = 0;
+            const footerEl = document.getElementById('footerMessage');
+
+            function scrambleFooter() {
+                currentMessage = (currentMessage + 1) % footerMessages.length;
+                scrambleText(footerEl, footerMessages[currentMessage], 600);
+            }
+
+            setInterval(scrambleFooter, 4000);
+
+            // Footer signal - koordinaatit ja taajuus
+            const signalEl = document.getElementById('footerSignal');
+            const baseFreq = 147.382;
+            const baseLat = 65.0124;
+            const baseLon = 25.4682;
+
+            function updateSignal() {
+                const freq = (baseFreq + (Math.random() - 0.5) * 0.02).toFixed(3);
+                const lat = (baseLat + (Math.random() - 0.5) * 0.001).toFixed(4);
+                const lon = (baseLon + (Math.random() - 0.5) * 0.001).toFixed(4);
+                signalEl.textContent = 'FREQ: ' + freq + ' MHz // ' + lat + '°N ' + lon + '°E';
+            }
+
+            setInterval(updateSignal, 800);
 
         </script>
     </body>
