@@ -309,6 +309,15 @@
                 letter-spacing: 0.05em;
                 display: inline-block;
             }
+
+            @keyframes sonar-ping {
+                0% { r: 3; opacity: 0.8; stroke-width: 1.5; }
+                100% { r: 40; opacity: 0; stroke-width: 0.5; }
+            }
+
+            .ping-active {
+                animation: sonar-ping 1.2s ease-out infinite;
+            }
         </style>
     </head>
 
@@ -349,10 +358,16 @@
                                         opacity="0.06" />
                                 </g>
 
-                                <!-- Blip-pisteet radarissa -->
-                                <circle cx="200" cy="100" r="3" fill="var(--orange)" opacity="0.8" />
-                                <circle cx="120" cy="200" r="2.5" fill="var(--orange)" opacity="0.6" />
-                                <circle cx="230" cy="190" r="2" fill="var(--green, #00cc44)" opacity="0.7" />
+                                <!-- Blip-pisteet radarissa ja sonar-ping  -->
+                                <circle id="ping-1" cx="200" cy="100" r="3" fill="none" stroke="var(--orange)" stroke-width="1" opacity="0"/>
+                                <circle id="blip-1" cx="200" cy="100" r="3" fill="var(--orange)" opacity="0.8"/>
+
+                                <circle id="ping-2" cx="120" cy="200" r="3" fill="none" stroke="var(--orange)" stroke-width="1" opacity="0"/>
+                                <circle id="blip-2" cx="120" cy="200" r="3" fill="var(--orange)" opacity="0.6"/>
+                                
+                                <circle id="ping-3" cx="230" cy="190" r="3" fill="none" stroke="var(--green, #00cc44)" stroke-width="1" opacity="0"/>
+                                <circle id="blip-3" cx="230" cy="190" r="3" fill="var(--green, #00cc44)" opacity="0.7"/>
+                            
                             </svg>
                         </div>
                     </div>
@@ -526,15 +541,19 @@
                 });
             }
 
-            document.querySelectorAll('.project-card').forEach(card => {
+            document.querySelectorAll('.project-card').forEach((card, index) => {
+                const ping = document.getElementById('ping-' + (index + 1));
+                if (!card.dataset.tech || !ping) return;
                 const techData = JSON.parse(card.dataset.tech);
 
                 card.addEventListener('mouseenter', () => {
                     showTechStack(techData);
+                    ping.classList.add('ping-active');
                 });
 
                 card.addEventListener('mouseleave', () => {
                     showPlaceholder();
+                    ping.classList.remove('ping-active');
                 });
             });
 
